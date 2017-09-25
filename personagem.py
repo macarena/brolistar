@@ -12,13 +12,14 @@ class Personagem:
         self.vx = 0
         self.vy = 0
         self.dir = 0
+        self.parado = False
         self.img_url = img_url
         
     def setSprite(self):
         self.img = Sprite(self.img_url)
     
     def desenha(self):
-        self.img.desenha(self.x, self.y, self.dir)
+        self.img.desenha(self.x, self.y, self.dir, self.parado)
         #fill(255,0,0)
         #ellipse(self.x, self.y, self.s, self.s)
     
@@ -49,6 +50,11 @@ class Personagem:
     def update(self):
         self.x += self.vx
         self.y += self.vy
+        
+        if self.vx == 0 and self.vy == 0:
+            self.parado = True
+        else:
+            self.parado = False
         
         self.x = constrain(self.x,self.s/2,self.w - self.s/2)
         self.y = constrain(self.y,self.s/2,self.h - self.s/2)

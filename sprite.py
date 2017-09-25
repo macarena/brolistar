@@ -4,14 +4,19 @@ class Sprite:
         self.recorte()
         self.pose = 0
         
-    def desenha(self, x, y, dir):
+    def desenha(self, x, y, dir, parado):
+        if parado:
+            self.pose = 0
+        else:
+            self.pose += 0.1
+            if self.pose >= len(self.imgs) + 1:
+                self.pose = 1
+        
         i = self.imgs[dir][int(self.pose)]
         x = x - i.width/2
         y = y - i.height + 20
         image(i, x, y)
-        self.pose += 0.1
-        if self.pose >= len(self.imgs) + 1:
-            self.pose = 1
+
         
     def recorte(self):
         cols = 5
