@@ -1,5 +1,6 @@
 #Brólistar - A estrelinha briguenta
 from personagem import *
+from mapa import *
 
 w = 600
 h = 600
