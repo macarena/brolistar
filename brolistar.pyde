@@ -6,6 +6,7 @@ w = 600
 h = 600
 player = Personagem(w/2,h/2,w,h, "link.png")
 player2 = Personagem(w/2,h/2,w,h, "maga.png")
+mapa = Mapa(20,20)
 
 def setup():
     size(w,h, P3D)
@@ -19,10 +20,7 @@ def draw():
         0, 1, 0); #up
     
     background(0)
-    fill(0,255,0)
-    rect(0,0,w,h/2)
-    fill(0,0,255)
-    rect(0,h/2,w,h/2)
+    mapa.desenha()
     
     player.update()
     player2.update()

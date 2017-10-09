@@ -18,4 +18,34 @@ class Quadrado:
     def __init__(self, tipo, linha, coluna):
         self.cor = self.cores[tipo]
         self.tipo = tipo
+        self.linha = linha
+        self.coluna = coluna
+        
+    def desenha(self,x,y,w,h):
+        fill(self.cor)
+        rect(x,y,w,h)
+        
+class Mapa:
+    quadrados = []
+    
+    def __init__(self, largura, altura):
+        #largura e altura em numero de linhas e colunas
+        self.largura = largura
+        self.altura = altura
+        self.escala = 40
+        self.criarQuadrados()
+        
+    def criarQuadrados(self):
+        for linha in range(self.altura):
+            for coluna in range(self.largura):
+                self.quadrados.append(Quadrado("agua",linha,coluna))
+                
+    def desenha(self):
+        for quadrado in self.quadrados:
+            x = self.escala * quadrado.coluna
+            y = self.escala * quadrado.linha
+            w = self.escala
+            h = self.escala
+            quadrado.desenha(x,y,w,h)
+    
         
