@@ -38,8 +38,10 @@ class Mapa:
         self.largura = largura
         self.altura = altura
         self.escala = 40
+        self.largura_px = self.largura * self.escala
+        self.altura_px = self.altura * self.escala
         #self.criarQuadrados()
-        self.importarQuadrados(r"C:\Users\Bem vindos\Documents\GitHub\brolistar\data\mapa2.csv")
+        self.importarQuadrados("data/mapa2.csv")
         
     def criarQuadrados(self):
         for linha in range(self.altura):
