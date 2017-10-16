@@ -1,3 +1,6 @@
+from random import randint
+import csv
+
 class Quadrado:
     tipos = ["agua", "grama", "areia", "estrada", "pedra", "arbusto"]
     amarelo = color(255, 230, 0)
@@ -33,12 +36,27 @@ class Mapa:
         self.largura = largura
         self.altura = altura
         self.escala = 40
-        self.criarQuadrados()
+        #self.criarQuadrados()
+        self.importarQuadrados("data/mapa1.csv")
         
     def criarQuadrados(self):
         for linha in range(self.altura):
             for coluna in range(self.largura):
-                self.quadrados.append(Quadrado("agua",linha,coluna))
+                tipo = Quadrado.tipos[randint(0,5)]
+                self.quadrados.append(Quadrado(tipo,linha,coluna))
+                
+    def importarQuadrados(self, arquivo):
+        f = open(arquivo, 'rb')
+        conteudo = csv.reader(f)
+        numLinha = 0
+        for linha in conteudo:
+            numColuna = 0
+            for item in linha:
+                tipo = Quadrado.tipos[int(item)]
+                self.quadrados.append(Quadrado(tipo,numLinha,numColuna))
+                numColuna += 1
+            numLinha += 1
+        f.close()
                 
     def desenha(self):
         for quadrado in self.quadrados:
@@ -46,6 +64,7 @@ class Mapa:
             y = self.escala * quadrado.linha
             w = self.escala
             h = self.escala
+            noStroke()
             quadrado.desenha(x,y,w,h)
     
         
