@@ -5,7 +5,7 @@ class Quadrado:
     tipos = ["agua", "grama", "areia", "estrada", "pedra", "arbusto", "lava"]
     amarelo = color(255, 230, 0)
     azul_escuro = color(7, 0, 255)
-    marrom_escuro = color(85, 25, 27)
+    marrom_escuro = color(216,216,191)
     verde_claro = color(10, 237, 7)
     marrom_claro = color(193, 109, 111)
     verde_escuro = color(48, 72, 36)
@@ -39,7 +39,7 @@ class Mapa:
         self.altura = altura
         self.escala = 40
         #self.criarQuadrados()
-        self.importarQuadrados(r"data\mapa2.csv")
+        self.importarQuadrados(r"C:\Users\Bem vindos\Documents\GitHub\brolistar\data\mapa2.csv")
         
     def criarQuadrados(self):
         for linha in range(self.altura):
