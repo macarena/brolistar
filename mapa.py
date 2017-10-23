@@ -33,15 +33,14 @@ class Quadrado:
 class Mapa:
     quadrados = []
     
-    def __init__(self, largura, altura):
+    def __init__(self):
+        self.importarQuadrados("data/mapa3.csv")
         #largura e altura em numero de linhas e colunas
-        self.largura = largura
-        self.altura = altura
-        self.escala = 40
+        self.escala = 32
         self.largura_px = self.largura * self.escala
         self.altura_px = self.altura * self.escala
         #self.criarQuadrados()
-        self.importarQuadrados("data/mapa2.csv")
+        
         
     def criarQuadrados(self):
         for linha in range(self.altura):
@@ -61,6 +60,8 @@ class Mapa:
                 numColuna += 1
             numLinha += 1
         f.close()
+        self.largura = numColuna
+        self.altura = numLinha
                 
     def desenha(self):
         for quadrado in self.quadrados:

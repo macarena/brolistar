@@ -2,10 +2,10 @@
 from personagem import *
 from mapa import *
 
-mapa = Mapa(20,20)
-w = mapa.altura_px
-h = mapa.largura_px
-player = Personagem(w/2,h/2,w,h, "link.png")
+mapa = Mapa()
+h = mapa.altura_px
+w = mapa.largura_px
+player = Personagem(w/2,h/2,w,h, "maga.png")
 player2 = Personagem(w/2,h/2,w,h, "maga.png")
 
 def setup():
