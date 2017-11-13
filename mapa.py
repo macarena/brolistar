@@ -6,11 +6,11 @@ class Quadrado:
 
     pos_terreno = {
         "agua": {'x': 18, 'y': 5},
-        "pedra": {'x': 20, 'y': 17},
+        "pedra": {'x': 20, 'y': 19, 'bg': 'grama'},
         "areia": {'x': 0, 'y': 17},
         "grama": {'x': 0, 'y': 11},
         "estrada": {'x': 10, 'y': 18},
-        "arbusto": {'x': 11, 'y': 11},
+        "arbusto": {'x': 11, 'y': 11, 'bg': 'grama'},
         "lava": {'x': 10, 'y': 17}
     }
     
@@ -20,7 +20,17 @@ class Quadrado:
         self.coluna = coluna
         x = self.pos_terreno[tipo]['x']
         y = self.pos_terreno[tipo]['y']
-        self.img = tiles[x][y]
+        self.img = tiles[y][x]
+        if 'bg' in self.pos_terreno[tipo]:
+            bg = self.pos_terreno[tipo]['bg']
+            img = createGraphics(32,32)
+            img.beginDraw()
+            x = self.pos_terreno[bg]['x']
+            y = self.pos_terreno[bg]['y']
+            img.image(tiles[y][x], 0, 0)
+            img.image(self.img, 0, 0)
+            img.endDraw()
+            self.img = img
         
     def desenha(self,x,y,w,h):
         image(self.img,x,y)
@@ -39,7 +49,7 @@ class Mapa:
     def importarTiles(self):
         self.img = loadImage("terrain.png")
         cols = 21
-        lines = 22
+        lines = 23
         w = self.img.width / cols
         h = self.img.height / lines
         self.tiles = []
