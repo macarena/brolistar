@@ -2,13 +2,14 @@
 from personagem import *
 from mapa import *
 
-mapa = Mapa()
-h = mapa.altura_px
-w = mapa.largura_px
-player = Personagem(w/2,h/2,w,h, "maga.png")
-player2 = Personagem(w/2,h/2,w,h, "maga.png")
-
 def setup():
+    global mapa, h, w, player, player2
+    mapa = Mapa()
+    h = mapa.altura_px
+    w = mapa.largura_px
+    player = Personagem(w/2,h/2,w,h, "link.png")
+    player2 = Personagem(w/2,h/2,w,h, "maga.png")
+    
     size(300,300, P3D)
     player.setSprite()
     player2.setSprite()
