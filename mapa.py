@@ -1,12 +1,15 @@
 from random import randint
 import csv
+from personagem import *
 
 class Quadrado:
-    tipos = ["agua", "grama", "areia", "estrada", "pedra", "arbusto", "lava"]
+    tipos = ["agua", "grama", "areia", "estrada", "pedra", "arbusto", "lava", "pedra_agua", "pedra_estrada"]
 
     pos_terreno = {
         "agua": {'x': 18, 'y': 5},
         "pedra": {'x': 20, 'y': 19, 'bg': 'grama'},
+        "pedra_agua": {'x': 20, 'y': 19, 'bg': 'agua'},
+        "pedra_estrada": {'x': 20, 'y': 19, 'bg': 'estrada'},
         "areia": {'x': 0, 'y': 17},
         "grama": {'x': 0, 'y': 11},
         "estrada": {'x': 10, 'y': 18},
@@ -37,6 +40,7 @@ class Quadrado:
         
 class Mapa:
     quadrados = []
+    personagens = []
     
     def __init__(self):
         self.importarTiles()
@@ -45,6 +49,21 @@ class Mapa:
         self.escala = 32
         self.largura_px = self.largura * self.escala
         self.altura_px = self.altura * self.escala
+    
+    def addPersonagem(self, p):
+        personagem = Personagem(self.largura_px/2, self.altura_px/2, self.largura_px ,self.altura_px, "link.png")
+        self.personagens.append(personagem)
+        return personagem
+    
+    def movePersonagem(self, p, tecla, para=False):
+        p.move(tecla,para)
+        
+    def tilePersonagem(self, p):
+        coluna = p.x / self.escala
+        linha = p.y / self.escala
+        for q in self.quadrados:
+            if q.coluna == coluna and q.linha == linha:
+                return q
     
     def importarTiles(self):
         self.img = loadImage("terrain.png")
@@ -86,5 +105,7 @@ class Mapa:
             h = self.escala
             noStroke()
             quadrado.desenha(x,y,w,h)
+        for p in self.personagens:
+            p.update()
     
         

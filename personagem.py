@@ -14,6 +14,7 @@ class Personagem:
         self.dir = 0
         self.parado = False
         self.img_url = img_url
+        self.setSprite()
         
     def setSprite(self):
         self.img = Sprite(self.img_url)
