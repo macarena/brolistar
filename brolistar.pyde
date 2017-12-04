@@ -15,13 +15,12 @@ def draw():
     
     background(0)
     mapa.desenha()
-    print(mapa.tilePersonagem(player).tipo)
     
 def keyPressed():
-    mapa.movePersonagem(player,keyCode)
+    mapa.movePersonagem(player,key)
     
 def keyReleased():
-    mapa.movePersonagem(player,keyCode,True)
+    mapa.movePersonagem(player,key,True)
     
 def cameraMov(x,y,w,h):
     margem = 140

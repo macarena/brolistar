@@ -24,29 +24,6 @@ class Personagem:
         #fill(255,0,0)
         #ellipse(self.x, self.y, self.s, self.s)
     
-    def move(self, tecla, para = False):
-        if para:
-            vel = 0
-        else:
-            vel = self.vel
-        
-        if tecla == 37:
-            self.vx = -vel
-        if tecla == 38:
-            self.vy = -vel
-        if tecla == 39:
-            self.vx = vel
-        if tecla == 40:
-            self.vy = vel
-            
-        if self.vx < 0:
-            self.dir = 0
-        if self.vx > 0:
-            self.dir = 1
-        if self.vy < 0:
-            self.dir = 2
-        if self.vy > 0:
-            self.dir = 3
             
     def update(self):
         self.x += self.vx

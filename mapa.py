@@ -6,15 +6,15 @@ class Quadrado:
     tipos = ["agua", "grama", "areia", "estrada", "pedra", "arbusto", "lava", "pedra_agua", "pedra_estrada"]
 
     pos_terreno = {
-        "agua": {'x': 18, 'y': 5},
-        "pedra": {'x': 20, 'y': 19, 'bg': 'grama'},
-        "pedra_agua": {'x': 20, 'y': 19, 'bg': 'agua'},
-        "pedra_estrada": {'x': 20, 'y': 19, 'bg': 'estrada'},
-        "areia": {'x': 0, 'y': 17},
-        "grama": {'x': 0, 'y': 11},
-        "estrada": {'x': 10, 'y': 18},
-        "arbusto": {'x': 11, 'y': 11, 'bg': 'grama'},
-        "lava": {'x': 10, 'y': 17}
+        "agua": {'x': 18, 'y': 5, 'andavel': False},
+        "pedra": {'x': 20, 'y': 19, 'bg': 'grama', 'andavel': False},
+        "pedra_agua": {'x': 20, 'y': 19, 'bg': 'agua', 'andavel': False},
+        "pedra_estrada": {'x': 20, 'y': 19, 'bg': 'estrada', 'andavel': False},
+        "areia": {'x': 0, 'y': 17, 'andavel': True},
+        "grama": {'x': 0, 'y': 11, 'andavel': True},
+        "estrada": {'x': 10, 'y': 18, 'andavel': True},
+        "arbusto": {'x': 11, 'y': 11, 'bg': 'grama', 'andavel': True},
+        "lava": {'x': 10, 'y': 17, 'andavel': True}
     }
     
     def __init__(self, tipo, linha, coluna, tiles):
@@ -24,6 +24,7 @@ class Quadrado:
         x = self.pos_terreno[tipo]['x']
         y = self.pos_terreno[tipo]['y']
         self.img = tiles[y][x]
+        self.andavel = self.pos_terreno [tipo]['andavel']
         if 'bg' in self.pos_terreno[tipo]:
             bg = self.pos_terreno[tipo]['bg']
             img = createGraphics(32,32)
@@ -56,8 +57,45 @@ class Mapa:
         return personagem
     
     def movePersonagem(self, p, tecla, para=False):
-        p.move(tecla,para)
+        if para:
+            vel = 0
+        else:
+            vel = p.vel
         
+        if tecla == "a":
+            p.vx = -vel
+        if tecla == "w":
+            p.vy = -vel
+        if tecla == "d":
+            p.vx = vel
+        if tecla == "s":
+            p.vy = vel
+            
+        if p.vx < 0:
+            p.dir = 0
+        if p.vx > 0:
+            p.dir = 1
+        if p.vy < 0:
+            p.dir = 2
+        if p.vy > 0:
+            p.dir = 3
+            
+            
+    def verificarMovimento(self,p):
+        novoX = p.x + p.vx
+        novoY = p.y + p.vy
+        quadrado_futuro = self.tileXY(novoX, novoY)
+        if not quadrado_futuro.andavel:
+            p.vx = 0
+            p.vy = 0
+        
+    def tileXY(self, x, y):
+        coluna = x / self.escala
+        linha = y / self.escala
+        for q in self.quadrados:
+            if q.coluna == coluna and q.linha == linha:
+                return q
+            
     def tilePersonagem(self, p):
         coluna = p.x / self.escala
         linha = p.y / self.escala
@@ -106,6 +144,8 @@ class Mapa:
             noStroke()
             quadrado.desenha(x,y,w,h)
         for p in self.personagens:
+            self.verificarMovimento(p)
             p.update()
+            
     
         
